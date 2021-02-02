@@ -1,12 +1,12 @@
 function getRandom(min, max) {
-  if (max > min && max >= 0) {
+  if (max > min && min >= 0) {
     return Math.floor(Math.random() * (max - min) + min);
   }
   throw new Error('Input data error');
 }
 
 function getRandomFloat(min, max, decimal) {
-  if (max > min && max >= 0) {
+  if (max > min && min >= 0) {
     return (Math.random() * (max - min) + min).toFixed(decimal);
   }
   throw new Error('Input data error');
