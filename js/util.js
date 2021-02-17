@@ -16,7 +16,13 @@ function getRandomArrayElement(array) {
 }
 
 function getRandomArrayLength(array) {
-  return array.slice(Math.floor(Math.random() * (array.length - 1)));
+  return array.slice(Math.floor(Math.random() * (array.length)));
 }
 
-export { getRandomFloat, getRandom, getRandomArrayElement, getRandomArrayLength }
+function removeChild(item) {
+  while (item.firstChild) {
+    item.removeChild(item.firstChild);
+  }
+}
+
+export { getRandomFloat, getRandom, getRandomArrayElement, getRandomArrayLength, removeChild }
