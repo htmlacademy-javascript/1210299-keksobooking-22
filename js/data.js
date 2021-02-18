@@ -46,10 +46,10 @@ function createApartmentAd() {
     offer: {
       title: `Объявление №${getRandom(1, 500)}`,
       address: `${locationX}, ${locationY}`,
-      price: getRandom(0, 5000),
+      price: getRandom(1, 5000),
       type: getRandomArrayElement(PROPERTY_TYPES),
-      rooms: getRandom(0, 100),
-      guests: getRandom(0, 500),
+      rooms: getRandom(1, 112),
+      guests: getRandom(2, 500),
       checkin: getRandomArrayElement(CHECK_IN_TIMES),
       checkout: getRandomArrayElement(CHECK_OUT_TIMES),
       features: getRandomArrayLength(FEATURES),
@@ -71,4 +71,5 @@ function createListAd(count, ad) {
   return listAd;
 }
 
-createListAd(APARTMENTS_COUNT, createApartmentAd);
+const apartments = createListAd(APARTMENTS_COUNT, createApartmentAd);
+export { apartments }
