@@ -1,11 +1,11 @@
 import { apartments } from './data.js';
-import { removeChild } from './util.js';
+import { removeChildElements } from './util.js';
 
 const PROPERTY_TYPES_KEY = {
-  palace: 'Дворец',
+  bungalow: 'Бунгало',
   flat: 'Квартира',
   house: 'Дом',
-  bungalow: 'Бунгало',
+  palace: 'Дворец',
 };
 
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
@@ -42,7 +42,7 @@ function addType(place, elem, objField) {
 function addFeatures(place, elem, objField) {
   const item = place.querySelector(elem);
   if (objField) {
-    removeChild(item);
+    removeChildElements(item);
     for (let j = 0; j < objField.length; j++) {
       const createElem = `<li class="popup__feature popup__feature--${objField[j]}"></li>`
       item.insertAdjacentHTML('beforeend', createElem);
@@ -55,7 +55,7 @@ function addFeatures(place, elem, objField) {
 function addPhotos(place, elem, objField) {
   const item = place.querySelector(elem);
   if (objField) {
-    removeChild(item);
+    removeChildElements(item);
     for (let j = 0; j < objField.length; j++) {
       const createElem = `<img src="${objField[j]}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`
       item.insertAdjacentHTML('beforeend', createElem);
@@ -79,15 +79,15 @@ function addTime(place, elem, checkin, checkout) {
 
 function addCapacity(place, elem, objRooms, objGuests) {
   const item = place.querySelector(elem);
-  const lastSymbol = objRooms.toString().slice(-1);
-  const penultSymbol = objRooms.toString().slice(-2, -1);
-  const lastTwoSymbols = objRooms.toString().slice(-2);
+  const lastSymbol = parseInt(objRooms.slice(-1));
+  const penultSymbol = parseInt(objRooms.slice(-2, -1));
+  const lastTwoSymbols = parseInt(objRooms.slice(-2));
   let summaSymbols = 0;
   if (penultSymbol) {
-    summaSymbols = parseInt(lastSymbol) + parseInt(penultSymbol);
+    summaSymbols = lastSymbol + penultSymbol;
   }
   let textRoom = 'комнат';
-  if (lastSymbol == '1' && summaSymbols !== 2) {
+  if (lastSymbol === 1 && summaSymbols !== 2) {
     textRoom = 'комната';
   } else if (lastSymbol >= 2 && lastSymbol <= 4 && !(lastTwoSymbols >= 10 && lastTwoSymbols <= 20)) {
     textRoom = 'комнаты';

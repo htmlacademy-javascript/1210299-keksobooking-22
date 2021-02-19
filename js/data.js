@@ -1,10 +1,10 @@
 import { getRandomFloat, getRandom, getRandomArrayElement, getRandomArrayLength } from './util.js';
 
 const PROPERTY_TYPES = [
-  'palace',
+  'bungalow',
   'flat',
   'house',
-  'bungalow',
+  'palace',
 ];
 
 const FEATURES = [
