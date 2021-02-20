@@ -19,10 +19,10 @@ function getRandomArrayLength(array) {
   return array.slice(Math.floor(Math.random() * (array.length)));
 }
 
-function removeChild(item) {
+function removeChildElements(item) {
   while (item.firstChild) {
     item.removeChild(item.firstChild);
   }
 }
 
-export { getRandomFloat, getRandom, getRandomArrayElement, getRandomArrayLength, removeChild }
+export { getRandomFloat, getRandom, getRandomArrayElement, getRandomArrayLength, removeChildElements }
