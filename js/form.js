@@ -12,16 +12,21 @@ const price = form.querySelector('#price');
 const timein = form.querySelector('#timein');
 const timeout = form.querySelector('#timeout');
 
-type.addEventListener('change', function () {
+function validatePrice() {
   price.setAttribute('placeholder', minPrices[type.value]);
   price.setAttribute('min', minPrices[type.value]);
   price.setAttribute('max', MAX_PRICE);
-});
+}
 
-timein.addEventListener('change', function () {
+function validateTimeIn() {
   timeout.value = timein.value;
-});
+}
 
-timeout.addEventListener('change', function () {
+function validateTimeOut() {
   timein.value = timeout.value;
-});
+}
+
+type.addEventListener('change', validatePrice);
+timein.addEventListener('change', validateTimeIn);
+timeout.addEventListener('change', validateTimeOut);
+validatePrice();
