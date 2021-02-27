@@ -1,25 +1,17 @@
-function getRandomFloat(min, max, decimal) {
+const getRandomFloat = (min, max, decimal) => {
   if (max > min && min >= 0) {
     return (Math.random() * (max - min) + min).toFixed(decimal);
   }
   throw new Error('Input data error');
 }
 
-function getRandom(min, max) {
-  return getRandomFloat(min, max, 0);
-}
+const getRandom = (min, max) => getRandomFloat(min, max, 0);
 
-function getRandomArrayElement(array) {
-  let item;
-  item = array[getRandom(0, array.length - 1)];
-  return item;
-}
+const getRandomArrayElement = (array) => array[getRandom(0, array.length - 1)];
 
-function getRandomArrayLength(array) {
-  return array.slice(Math.floor(Math.random() * (array.length)));
-}
+const getRandomArrayLength = (array) => array.slice(Math.floor(Math.random() * (array.length)));
 
-function removeChildElements(item) {
+const removeChildElements = (item) => {
   while (item.firstChild) {
     item.removeChild(item.firstChild);
   }

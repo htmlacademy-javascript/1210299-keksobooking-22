@@ -36,9 +36,9 @@ const PROPERTY_PHOTOS = [
 
 const APARTMENTS_COUNT = 10;
 
-function createApartmentAd() {
-  let locationX = getRandomFloat(35.65000, 36.70000, 5);
-  let locationY = getRandomFloat(35.65000, 36.70000, 5);
+const createApartmentAd = () => {
+  const locationX = getRandomFloat(35.65000, 35.70000, 5);
+  const locationY = getRandomFloat(139.70000, 139.80000, 5);
   return {
     author: {
       avatar: `img/avatars/user0${getRandom(1, 8)}.png`,
@@ -63,7 +63,7 @@ function createApartmentAd() {
   }
 }
 
-function createListAd(count, ad) {
+const createListAd = (count, ad) => {
   let listAd = [];
   for (let i = 0; i < count; i++) {
     listAd.push(ad());
@@ -72,4 +72,5 @@ function createListAd(count, ad) {
 }
 
 const apartments = createListAd(APARTMENTS_COUNT, createApartmentAd);
+
 export { apartments }

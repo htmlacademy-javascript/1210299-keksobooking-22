@@ -1,4 +1,3 @@
-import { apartments } from './data.js';
 import { removeChildElements } from './util.js';
 
 const PROPERTY_TYPES_KEY = {
@@ -7,12 +6,10 @@ const PROPERTY_TYPES_KEY = {
   house: 'Дом',
   palace: 'Дворец',
 };
-
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
+const fragment = document.createDocumentFragment();
 
-const mapCanvas = document.querySelector('#map-canvas');
-
-function addTextContent(place, elem, objField, text) {
+const addTextContent = (place, elem, objField, text) => {
   const item = place.querySelector(elem);
   if (objField) {
     if (text) {
@@ -23,7 +20,7 @@ function addTextContent(place, elem, objField, text) {
   return place.removeChild(item);
 }
 
-function addAvatar(place, elem, objField) {
+const addAvatar = (place, elem, objField) => {
   const item = place.querySelector(elem);
   if (objField) {
     return item.src = objField;
@@ -31,7 +28,7 @@ function addAvatar(place, elem, objField) {
   return place.removeChild(item);
 }
 
-function addType(place, elem, objField) {
+const addType = (place, elem, objField) => {
   const item = place.querySelector(elem);
   if (objField) {
     return item.textContent = PROPERTY_TYPES_KEY[objField];
@@ -39,12 +36,12 @@ function addType(place, elem, objField) {
   return place.removeChild(item);
 }
 
-function addFeatures(place, elem, objField) {
+const addFeatures = (place, elem, objField) => {
   const item = place.querySelector(elem);
   if (objField) {
     removeChildElements(item);
-    for (let j = 0; j < objField.length; j++) {
-      const createElem = `<li class="popup__feature popup__feature--${objField[j]}"></li>`
+    for (let i = 0; i < objField.length; i++) {
+      const createElem = `<li class="popup__feature popup__feature--${objField[i]}"></li>`
       item.insertAdjacentHTML('beforeend', createElem);
     }
     return;
@@ -52,12 +49,12 @@ function addFeatures(place, elem, objField) {
   return place.removeChild(item);
 }
 
-function addPhotos(place, elem, objField) {
+const addPhotos = (place, elem, objField) => {
   const item = place.querySelector(elem);
   if (objField) {
     removeChildElements(item);
-    for (let j = 0; j < objField.length; j++) {
-      const createElem = `<img src="${objField[j]}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`
+    for (let i = 0; i < objField.length; i++) {
+      const createElem = `<img src="${objField[i]}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`
       item.insertAdjacentHTML('beforeend', createElem);
     }
     return;
@@ -65,7 +62,7 @@ function addPhotos(place, elem, objField) {
   return place.removeChild(item);
 }
 
-function addTime(place, elem, checkin, checkout) {
+const addTime = (place, elem, checkin, checkout) => {
   const item = place.querySelector(elem);
   if (checkin && checkout) {
     return item.textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
@@ -77,7 +74,7 @@ function addTime(place, elem, checkin, checkout) {
   return place.removeChild(item);
 }
 
-function addCapacity(place, elem, objRooms, objGuests) {
+const addCapacity = (place, elem, objRooms, objGuests) => {
   const item = place.querySelector(elem);
   const lastSymbol = parseInt(objRooms.slice(-1));
   const penultSymbol = parseInt(objRooms.slice(-2, -1));
@@ -102,23 +99,19 @@ function addCapacity(place, elem, objRooms, objGuests) {
   return place.removeChild(item);
 }
 
-function createCard(count, obj) {
-  const fragment = document.createDocumentFragment();
-  for (let i = 0; i < count; i++) {
-    const cardTemplateClone = cardTemplate.cloneNode(true);
-    addTextContent(cardTemplateClone, '.popup__title', obj[i].offer.title);
-    addTextContent(cardTemplateClone, '.popup__text--address', obj[i].offer.address);
-    addTextContent(cardTemplateClone, '.popup__description', obj[i].offer.description);
-    addTextContent(cardTemplateClone, '.popup__text--price', obj[i].offer.price, ' ₽/ночь');
-    addAvatar(cardTemplateClone, '.popup__avatar', obj[i].author.avatar);
-    addType(cardTemplateClone, '.popup__type', obj[i].offer.type);
-    addFeatures(cardTemplateClone, '.popup__features', obj[i].offer.features);
-    addCapacity(cardTemplateClone, '.popup__text--capacity', obj[i].offer.rooms, obj[i].offer.guests);
-    addTime(cardTemplateClone, '.popup__text--time', obj[i].offer.checkin, obj[i].offer.checkout);
-    addPhotos(cardTemplateClone, '.popup__photos', obj[i].offer.photos);
-    fragment.appendChild(cardTemplateClone);
-  }
-  return fragment;
+const createCard = (obj) => {
+  const cardTemplateClone = cardTemplate.cloneNode(true);
+  addTextContent(cardTemplateClone, '.popup__title', obj.offer.title);
+  addTextContent(cardTemplateClone, '.popup__text--address', obj.offer.address);
+  addTextContent(cardTemplateClone, '.popup__description', obj.offer.description);
+  addTextContent(cardTemplateClone, '.popup__text--price', obj.offer.price, ' ₽/ночь');
+  addAvatar(cardTemplateClone, '.popup__avatar', obj.author.avatar);
+  addType(cardTemplateClone, '.popup__type', obj.offer.type);
+  addFeatures(cardTemplateClone, '.popup__features', obj.offer.features);
+  addCapacity(cardTemplateClone, '.popup__text--capacity', obj.offer.rooms, obj.offer.guests);
+  addTime(cardTemplateClone, '.popup__text--time', obj.offer.checkin, obj.offer.checkout);
+  addPhotos(cardTemplateClone, '.popup__photos', obj.offer.photos);
+  return fragment.appendChild(cardTemplateClone);
 }
 
-mapCanvas.appendChild(createCard(1, apartments));
+export { createCard }
