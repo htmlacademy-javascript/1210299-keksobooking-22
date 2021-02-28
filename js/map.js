@@ -1,6 +1,6 @@
 /* global L:readonly */
 import { address } from './form.js';
-import { setEnabledForms } from './settings.js';
+import { enableForms } from './settings.js';
 import { apartments } from './data.js';
 import { createCard } from './card.js';
 
@@ -10,7 +10,7 @@ const DEFAULT_SCALE = 13;
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    setEnabledForms();
+    enableForms();
     address.value = `${DEFAULT_LAT}, ${DEFAULT_LNG}`;
   })
   .setView({

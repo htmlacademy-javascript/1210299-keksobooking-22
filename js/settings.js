@@ -2,7 +2,7 @@ const filterForm = document.querySelector('.map__filters');
 const adForm = document.querySelector('.ad-form');
 const filterFormsElements = Array.from(filterForm.children).concat(Array.from(adForm.children));
 
-const setDisabledForms = () => {
+const disableForms = () => {
   filterForm.classList.add('map__filters--disabled');
   adForm.classList.add('ad-form--disabled');
   filterFormsElements.forEach((item) => {
@@ -10,7 +10,7 @@ const setDisabledForms = () => {
   });
 }
 
-const setEnabledForms = () => {
+const enableForms = () => {
   filterForm.classList.remove('map__filters--disabled');
   adForm.classList.remove('ad-form--disabled');
   filterFormsElements.forEach((item) => {
@@ -18,6 +18,6 @@ const setEnabledForms = () => {
   });
 }
 
-setDisabledForms();
+disableForms();
 
-export { setEnabledForms }
+export { enableForms }
