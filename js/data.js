@@ -35,6 +35,7 @@ const PROPERTY_PHOTOS = [
 ];
 
 const APARTMENTS_COUNT = 10;
+const MAX_ROOMS_NUMBER = 100;
 
 const createApartmentAd = () => {
   const locationX = getRandomFloat(35.65000, 35.70000, 5);
@@ -48,7 +49,7 @@ const createApartmentAd = () => {
       address: `${locationX}, ${locationY}`,
       price: getRandom(1, 5000),
       type: getRandomArrayElement(PROPERTY_TYPES),
-      rooms: getRandom(1, 112),
+      rooms: getRandom(1, MAX_ROOMS_NUMBER),
       guests: getRandom(2, 500),
       checkin: getRandomArrayElement(CHECK_IN_TIMES),
       checkout: getRandomArrayElement(CHECK_OUT_TIMES),
@@ -73,4 +74,4 @@ const createListAd = (count, ad) => {
 
 const apartments = createListAd(APARTMENTS_COUNT, createApartmentAd);
 
-export { apartments }
+export { apartments, MAX_ROOMS_NUMBER }
