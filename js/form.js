@@ -11,18 +11,19 @@ const type = form.querySelector('#type');
 const price = form.querySelector('#price');
 const timein = form.querySelector('#timein');
 const timeout = form.querySelector('#timeout');
+const address = document.querySelector('#address');
 
-function validatePrice() {
+const validatePrice = () => {
   price.setAttribute('placeholder', minPrices[type.value]);
   price.setAttribute('min', minPrices[type.value]);
   price.setAttribute('max', MAX_PRICE);
 }
 
-function validateTimeIn() {
+const validateTimeIn = () => {
   timeout.value = timein.value;
 }
 
-function validateTimeOut() {
+const validateTimeOut = () => {
   timein.value = timeout.value;
 }
 
@@ -30,3 +31,5 @@ type.addEventListener('change', validatePrice);
 timein.addEventListener('change', validateTimeIn);
 timeout.addEventListener('change', validateTimeOut);
 validatePrice();
+
+export { address };
