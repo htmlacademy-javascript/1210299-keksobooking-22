@@ -1,4 +1,6 @@
-import { MAX_ROOMS_NUMBER } from './data.js';
+import { sendData } from './api.js';
+import { successPopup, errorPopup } from './popup.js';
+import { setAddress, resetMainMarker } from './map.js';
 
 const MAX_PRICE = 1000000;
 const minPrices = {
@@ -9,18 +11,18 @@ const minPrices = {
 }
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
+const MAX_ROOMS_NUMBER = 100;
 
 const form = document.querySelector('.ad-form');
 const title = form.querySelector('#title');
 const address = form.querySelector('#address');
 const type = form.querySelector('#type');
 const price = form.querySelector('#price');
-const timein = form.querySelector('#timein');
-const timeout = form.querySelector('#timeout');
+const timeIn = form.querySelector('#timein');
+const timeOut = form.querySelector('#timeout');
 const roomNumber = form.querySelector('#room_number');
 const capacity = form.querySelector('#capacity');
-
-address.readOnly = true;
+const buttonReset = form.querySelector('.ad-form__reset');
 
 const validatePrice = () => {
   price.setAttribute('placeholder', minPrices[type.value]);
@@ -29,11 +31,11 @@ const validatePrice = () => {
 }
 
 const validateTimeIn = () => {
-  timeout.value = timein.value;
+  timeOut.value = timeIn.value;
 }
 
 const validateTimeOut = () => {
-  timein.value = timeout.value;
+  timeIn.value = timeOut.value;
 }
 
 const validateTitle = (item) => {
@@ -73,13 +75,39 @@ const validateRoomNumber = () => {
   }
 }
 
-type.addEventListener('change', validatePrice);
-timein.addEventListener('change', validateTimeIn);
-timeout.addEventListener('change', validateTimeOut);
+type.addEventListener('change', () => validatePrice());
+timeIn.addEventListener('change', () => validateTimeIn());
+timeOut.addEventListener('change', () => validateTimeOut());
 title.addEventListener('input', () => validateTitle(title));
-roomNumber.addEventListener('change', validateRoomNumber);
+roomNumber.addEventListener('change', () => validateRoomNumber());
 
 validatePrice();
 validateRoomNumber();
+address.readOnly = true;
+
+const setAdFormSubmit = () => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    sendData(
+      () => { successPopup(), form.reset(), setAddress(), validatePrice(), validateRoomNumber(), resetMainMarker() },
+      () => errorPopup(),
+      new FormData(evt.target),
+    );
+  });
+};
+
+const setAdFormReset = () => {
+  buttonReset.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    form.reset();
+    setAddress();
+    validatePrice();
+    validateRoomNumber();
+    resetMainMarker();
+  })
+};
+
+setAdFormSubmit();
+setAdFormReset();
 
 export { address };

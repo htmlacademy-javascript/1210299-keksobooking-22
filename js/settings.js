@@ -18,6 +18,6 @@ const enableForms = () => {
   });
 }
 
-disableForms();
 
-export { enableForms }
+
+export { enableForms, disableForms }

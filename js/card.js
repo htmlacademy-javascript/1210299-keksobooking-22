@@ -7,7 +7,6 @@ const PROPERTY_TYPES_KEY = {
   palace: 'Дворец',
 };
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-const fragment = document.createDocumentFragment();
 
 const addTextContent = (place, elem, objField, text) => {
   const item = place.querySelector(elem);
@@ -76,9 +75,9 @@ const addTime = (place, elem, checkin, checkout) => {
 
 const addCapacity = (place, elem, objRooms, objGuests) => {
   const item = place.querySelector(elem);
-  const lastSymbol = parseInt(objRooms.slice(-1));
-  const penultSymbol = parseInt(objRooms.slice(-2, -1));
-  const lastTwoSymbols = parseInt(objRooms.slice(-2));
+  const lastSymbol = parseInt(objRooms.toString().slice(-1));
+  const penultSymbol = parseInt(objRooms.toString().slice(-2, -1));
+  const lastTwoSymbols = parseInt(objRooms.toString().slice(-2));
   let summaSymbols = 0;
   if (penultSymbol) {
     summaSymbols = lastSymbol + penultSymbol;
@@ -111,7 +110,7 @@ const createCard = (obj) => {
   addCapacity(cardTemplateClone, '.popup__text--capacity', obj.offer.rooms, obj.offer.guests);
   addTime(cardTemplateClone, '.popup__text--time', obj.offer.checkin, obj.offer.checkout);
   addPhotos(cardTemplateClone, '.popup__photos', obj.offer.photos);
-  return fragment.appendChild(cardTemplateClone);
+  return cardTemplateClone;
 }
 
 export { createCard }
